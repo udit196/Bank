@@ -95,7 +95,7 @@ app.post("/login",(req,res)=>{
             console.log(err);
         })     
 });
-
+const port=process.env.PORT || 80
 app.listen(80,function(){
     console.log("Server started successfully on port 80");
 });
