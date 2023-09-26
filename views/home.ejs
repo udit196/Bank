@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhyanchal Gramin Bank Management System</title>
+    <link rel="stylesheet" href="D:/VS_code/Projects/Secrets - Starting Code/views/styles.css">
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    display: block;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+.main-content {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Madhyanchal Gramin Bank Management System</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/login/home">Home</a></li>
+            <li><a href="/login/accounts">Accounts</a></li>
+            <li><a href="/login/transactions">Transactions</a></li>
+            <li><a href="/login/customers">Customers</a></li>
+            <li><a href="/login/about">About Us</a></li>
+        </ul>
+    </nav>
+    <section class="main-content">
+        <h2>Latest News</h2>
+        <span id="element"></span>
+    </section>
+    <footer>
+        <p>&copy; 2023 Madhyanchal Gramin Bank System</p>
+    </footer>
+    <script src="script.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        var typed = new Typed('#element', {
+          strings: ['Choko moko is now loko moko .', 'We drive the world towards the future.','get upto 10% on FD\'s.','Jashpal Bana holds an account here😎','Introducing new Children\'s Accounts .'],
+          typeSpeed: 50,
+        });
+      </script>
+</body>
+</html>

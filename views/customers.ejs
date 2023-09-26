@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Customers - Madhyanchal Gramin Bank</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    
+    header {
+        background-color: #007BFF;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        background-color: #333;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav li {
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav a {
+        text-decoration: none;
+        color: white;
+        padding: 15px;
+        display: block;
+
+    }
+    
+    nav a:hover {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+        display: block;
+        text-decoration: none;
+    }
+    
+    .main-content {
+        margin: 20px;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ddd;
+    }
+    
+    footer {
+        text-align: center;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+    }
+
+    #fret{
+        text-align: center;
+        margin:5px;
+    }
+    
+    #cake{
+        background-color:#007BFF;
+        color:black;
+        padding:5px 5px;
+        border:5px solid black;
+    }
+    
+    
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Choko Moko Bank Customers</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/login/home">Home</a></li>
+            <li><a href="/login/accounts">Accounts</a></li>
+            <li><a href="/login/transactions">Transactions</a></li>
+            <li><a href="/login/customers">Customers</a></li>
+            <li><a href="/login/about">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="text-center">Customers</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Acc No.</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    
+                    <!-- Add more table headers for Due Date, Members, Head, College, etc. -->
+                </tr>
+            </thead>
+            <tbody id="committeeTableBody">
+                <!-- Committee data will be dynamically generated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="fret">
+        <a href="/login/add_customer" id="cake">ADD CUSTOMER</a>
+    </div>   
+
+    <!-- Include the Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- Include the show_committee.js file -->
+    <script src="customers.js"></script>
+    <script>
+        // Initialize Firebase using your configuration
+        const firebaseConfig = {
+            apiKey: "<%= apiKey %>" ,
+            authDomain: "<%=authDomain%>",
+            databaseURL: "<%=databaseURL%>",
+            projectId: "<%=projectId%>",
+            storageBucket: "<%=storageBucket%>",
+            messagingSenderId: "<%=messagingSenderId%>",
+            appId: "<%=appId%>"
+        };
+
+firebase.initializeApp(firebaseConfig);
+
+const committeeTableBody = document.getElementById('committeeTableBody');
+
+function displayCommittees(committees) {
+  committeeTableBody.innerHTML = '';
+
+  committees.forEach(committee => {
+    const row = document.createElement('tr');
+
+    const acc_no_cell = document.createElement('td');
+    acc_no_cell.textContent = committee.acc_number;
+    row.appendChild(acc_no_cell);
+
+    const committeeNameCell = document.createElement('td');
+    committeeNameCell.textContent = committee.committee_name;
+    row.appendChild(committeeNameCell);
+
+    const emailCell = document.createElement('td');
+    emailCell.textContent = committee.Email;
+    row.appendChild(emailCell);
+
+    const headCell = document.createElement('td');
+    headCell.textContent = committee.number;
+    row.appendChild(headCell);
+
+    // ... Add other cells for Due Date, Members, Head, College
+
+    committeeTableBody.appendChild(row);
+  });
+}
+
+// Retrieve committee data from Firebase and display it
+firebase.database().ref('committee').on('value', snapshot => {
+  const committees = [];
+  snapshot.forEach(committeeSnapshot => {
+    const committeeData = committeeSnapshot.val();
+    committees.push(committeeData);
+  });
+  // console.log(committees)
+  displayCommittees(committees);
+});
+
+    </script>
+    <footer>
+        <p>&copy; 2023 Madhyanchal Gramin Bank</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+

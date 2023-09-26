@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions - Choko Moko Bank</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    display: block;
+}
+
+nav a:hover {
+    background-color: #555;
+}
+
+.main-content {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+}
+
+footer {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Choko Moko Bank Transactions</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/login/home">Home</a></li>
+            <li><a href="/login/accounts">Accounts</a></li>
+            <li><a href="/login/transactions">Transactions</a></li>
+            <li><a href="/login/customers">Customers</a></li>
+            <li><a href="/login/about">About Us</a></li>
+        </ul>
+    </nav>
+    <section class="main-content">
+        <h2>Recent Transactions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Transaction Type</th>
+                    <th>Amount</th>
+                    <th>Account</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2023-09-05</td>
+                    <td>Deposit</td>
+                    <td>$1,000.00</td>
+                    <td>1234567890</td>
+                </tr>
+                <tr>
+                    <td>2023-09-04</td>
+                    <td>Withdrawal</td>
+                    <td>$500.00</td>
+                    <td>9876543210</td>
+                </tr>
+                <!-- Add more rows for additional transactions -->
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <p>&copy; 2023 Choko Moko Bank</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

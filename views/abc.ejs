@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Accounts</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+    
+    header {
+        background-color: #007BFF;
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        background-color: #333;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav li {
+        margin: 0;
+        padding: 0;
+    }
+    
+    nav a {
+        text-decoration: none;
+        color: white;
+        padding: 15px;
+        display: block;
+
+    }
+    
+    nav a:hover {
+        background-color: #555;
+        color: white;
+        padding: 15px;
+        display: block;
+        text-decoration: none;
+    }
+    
+    .main-content {
+        margin: 20px;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid #ddd;
+    }
+    
+    footer {
+        text-align: center;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+    }
+    
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Madhyanchal Gramin Bank Customers</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/login/home">Home</a></li>
+            <li><a href="/login/accounts">Accounts</a></li>
+            <li><a href="/login/transactions">Transactions</a></li>
+            <li><a href="/login/customers">Customers</a></li>
+            <li><a href="/login/about">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="text-center">Accounts</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Account No.</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody id="committeeTableBody">
+                <!-- Faculty data will be dynamically generated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this Account holder?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="canceldelete">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- Include delete_committee.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="delete_committee.js"></script>
+    <script>
+        // Initialize Firebase using your configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDEDJm7eXfgzFqTLh13yL-01wkKK5zY4FQ",
+    authDomain: "committee-creator.firebaseapp.com",
+    databaseURL: "https://committee-creator-default-rtdb.firebaseio.com",
+    projectId: "committee-creator",
+    storageBucket: "committee-creator.appspot.com",
+    messagingSenderId: "776277381298",
+    appId: "1:776277381298:web:8d5d6d2ad5c7263c2979ab"
+};
+
+
+firebase.initializeApp(firebaseConfig);
+
+const committeeTableBody = document.getElementById('committeeTableBody');
+const confirmDeleteButton = document.getElementById('confirmDelete');
+
+function createDeleteButton(committeeId) {
+    const button = document.createElement('button');
+    button.className = 'btn btn-danger btn-sm';
+    button.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    button.addEventListener('click', () => 
+    deletecommittee(committeeId));
+    return button;
+}
+
+function deletecommittee(committeeId) {
+    $('#confirmationModal').modal('show'); // Show the confirmation modal
+
+    confirmDeleteButton.addEventListener('click', () => {
+        firebase.database().ref(`committee/${committeeId}`).remove();
+        $('#confirmationModal').modal('hide'); // Hide the confirmation modal
+    });
+
+    // Handle "Cancel" button click inside the modal
+    const cancelDeleteButton = document.getElementById('cancelDelete');
+    cancelDeleteButton.addEventListener('click', () => {
+        $('#confirmationModal').modal('hide'); // Hide the confirmation modal
+    });     
+}
+
+firebase.database().ref('committee').on('value', snapshot => {
+    committeeTableBody.innerHTML = ''; // Clear existing table content
+
+    snapshot.forEach(committeeSnapshot => {
+        const committeeId = committeeSnapshot.key;
+        const committeeData = committeeSnapshot.val();
+
+        const row = document.createElement('tr');
+
+        const acc_no_Cell = document.createElement('td');
+        acc_no_Cell.textContent = committeeData.acc_number;
+        row.appendChild(acc_no_Cell);
+
+        const depositCell = document.createElement('td');
+        depositCell.textContent = committeeData.deposit;
+        row.appendChild(depositCell);
+
+        const actionCell = document.createElement('td');
+        actionCell.appendChild(createDeleteButton(committeeId));
+        row.appendChild(actionCell);
+
+        committeeTableBody.appendChild(row);
+    });
+});
+
+
+    </script>
+    <footer>
+        <p>&copy; 2023 Madhyanchal Gramin Bank</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+

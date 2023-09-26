@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Customer</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Add Customer</h2>
+                            <form id="addCommitteeForm">
+                                    <div class="form-floating mb-3">
+                                        <input type="acc_number" class="form-control" id="acc_number" placeholder="1234567890">
+                                        <label for="acc_number">Account No.</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input name ="committee_name" type="text" class="form-control" id="c_name" placeholder="Committee Name">
+                                        <label for="c_name">Customer Name</label>
+                                      </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="deposit" placeholder="$...">
+                                        <label for="deposit">Deposit</label>
+                                    </div>
+                            
+                                    <div class="form-floating mb-3">
+                                        <input type="Email" class="form-control" id="Email" placeholder="Email of the Committee">
+                                        <label for="Email">Email</label>
+                                      </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="number" placeholder="1234567890">
+                                        <label for="number">Contact No.</label>
+                                      </div>
+                            
+                                      </div>
+                                      <button id="submit" type="submit">Submit</button>
+                                  </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+        <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        <!-- Include the separated JavaScript file -->
+        <script src="add_committee.js"></script>
+        <script type="module" src="text.js" ></script>
+        <script>
+        const firebaseConfig = {
+            apiKey: "<%= apiKey %>" ,
+            authDomain: "<%=authDomain%>",
+            databaseURL: "<%=databaseURL%>",
+            projectId: "<%=projectId%>",
+            storageBucket: "<%=storageBucket%>",
+            messagingSenderId: "<%=messagingSenderId%>",
+            appId: "<%=appId%>"
+        };
+        console.log(firebaseConfig)
+            firebase.initializeApp(firebaseConfig);
+
+            // Reference to the Firebase database
+            const database = firebase.database();
+
+            window.addEventListener("DOMContentLoaded", (event) => {
+                document.getElementById('submit').addEventListener('click',(e)=>{
+                e.preventDefault()
+                console.log("hello")
+                    acc_number=document.getElementById("acc_number");
+                    c_name=document.getElementById("c_name");
+                    Email=document.getElementById("Email");
+                    phone=document.getElementById("number");
+                    deposit=document.getElementById("deposit");
+                
+                    const data={
+                    acc_number:acc_number.value,
+                    committee_name:c_name.value,
+                    Email:Email.value,
+                    number:number.value,
+                    deposit:deposit.value
+                    }              // Push data to Firebase database
+            database.ref('committee').push(data);
+
+            // Redirect to a success page or perform any other actions
+            alert('Customer added successfully!');
+            window.location.href = 'customers';
+
+                console.log(data);
+                });
+            });
+
+            // Initialize Firebase and set up your configuration
+            // Replace the following with your actual Firebase config
+
+
+        </script>
+    </body>
+    </html>
+    
+
