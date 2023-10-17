@@ -14,29 +14,29 @@
                     <div class="card">
                         <div class="card-body">
                             <h2 class="card-title text-center mb-4">Add Customer</h2>
-                            <form id="addCustomerForm">
+                            <form id="addCommitteeForm">
                                     <div class="form-floating mb-3">
-                                        <input type="number" name="acc_number" class="form-control" id="acc_number" placeholder="1234567890">
+                                        <input type="text" class="form-control" id="acc_number" placeholder="1234567890">
                                         <label for="acc_number">Account No.</label>
                                     </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="text" name ="c_name" class="form-control" id="c_name" placeholder="Committee Name">
+                                        <input type="text" name ="committee_name"  class="form-control" id="c_name" placeholder="Committee Name">
                                         <label for="c_name">Customer Name</label>
                                       </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="number" name="deposit" class="form-control" id="deposit" placeholder="$...">
+                                        <input type="number" class="form-control" id="deposit" placeholder="$...">
                                         <label for="deposit">Deposit</label>
                                     </div>
                             
                                     <div class="form-floating mb-3">
-                                        <input type="email" name="email" class="form-control" id="Email" placeholder="Email of the Committee">
-                                        <label for="email">Email</label>
+                                        <input type="email" class="form-control" id="Email" placeholder="Email of the Committee">
+                                        <label for="Email">Email</label>
                                       </div>
 
                                     <div class="form-floating mb-3">
-                                        <input type="number" name="number" class="form-control" id="number" placeholder="1234567890">
+                                        <input type="number" class="form-control" id="number" placeholder="1234567890">
                                         <label for="number">Contact No.</label>
                                       </div>
                             
@@ -56,55 +56,58 @@
         <!-- <script src="add_customer.js"></script> -->
         <!-- <script type="module" src="text.js" ></script> -->
         <script>
-
-            // Initialize Firebase and set up your configuration
-            // Replace the following with your actual Firebase config
-            const firebaseConfig = {
-                apiKey: "<%= apiKey %>" ,
+        const firebaseConfig = {
+            apiKey: "<%= apiKey %>" ,
             authDomain: "<%=authDomain%>",
             databaseURL: "<%=databaseURL%>",
             projectId: "<%=projectId%>",
             storageBucket: "<%=storageBucket%>",
             messagingSenderId: "<%=messagingSenderId%>",
             appId: "<%=appId%>"
-            };
-            
-            firebase.initializeApp(firebaseConfig);
-            
+        };
+        // console.log(firebaseConfig)
+        firebase.initializeApp(firebaseConfig);
+
             // Reference to the Firebase database
             const database = firebase.database();
-            
-            // Get the form element
-            const myForm = document.getElementById('addCustomerForm');
-            
-            // Listen for form submission
-            myForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-            
-                // Get form values
-                const acc_number = myForm.acc_number.value;
-                const customer_name = myForm.c_name.value;
-                const deposit = myForm.deposit.value;
-                const email = myForm.email.value;
-                const phone = myForm.number.value;
-            
-                // Push data to Firebase database
-                database.ref('committee').push({
-                 acc_number :acc_number,     
-                 customer_name :customer_name, 
-                 deposit :deposit,
-                 email : email,
-                 phone : phone
+
+            window.addEventListener("DOMContentLoaded", (event) => {
+                document.getElementById('submit').addEventListener('click',(e)=>{
+                e.preventDefault();
+
+                    acc_number=document.getElementById("acc_number");
+                    c_name=document.getElementById("c_name");
+                    Email=document.getElementById("Email");
+                    phone=document.getElementById("number");
+                    deposit=document.getElementById("deposit");
+                
+                    const data={
+                    acc_number:acc_number.value,
+                    customer_name:c_name.value,
+                    Email:Email.value,
+                    number:phone.value,
+                    deposit:deposit.value
+                    }
+
+                    console.log(data);
+                    
+                    // Push data to Firebase database
+                    database.ref('committee').push(data);
+
+                    // Redirect to a success page or perform any other actions
+                    alert('Customer added successfully!');
+                    window.location.href = 'customers';
+
+                    console.log(data);
                 });
-            
-                // Redirect to a success page or perform any other actions
-                alert('Customer added successfully!');
-                myForm.reset(); // Reset the form
             });
+
+            // Initialize Firebase and set up your configuration
+            // Replace the following with your actual Firebase config
+
 
         </script>
     </body>
     </html>
     
-
 

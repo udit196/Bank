@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,8 +8,8 @@
     <style>
         
         /* styles.css */
-        body {
-            font-family: Arial, sans-serif;
+    body {
+        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f0f0f0;
@@ -123,7 +122,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <!-- Include the show_committee.js file -->
-    <script src="customers.js"></script>
+    <!-- <script src="customers.js"></script> -->
     <script>
         // Initialize Firebase using your configuration
         const firebaseConfig = {
@@ -151,15 +150,15 @@ function displayCommittees(committees) {
     row.appendChild(acc_no_cell);
 
     const committeeNameCell = document.createElement('td');
-    committeeNameCell.textContent = committee.committee_name;
+    committeeNameCell.textContent = committee.customer_name;
     row.appendChild(committeeNameCell);
 
     const emailCell = document.createElement('td');
-    emailCell.textContent = committee.Email;
+    emailCell.textContent = committee.email;
     row.appendChild(emailCell);
 
     const headCell = document.createElement('td');
-    headCell.textContent = committee.number;
+    headCell.textContent = committee.phone;
     row.appendChild(headCell);
 
     // ... Add other cells for Due Date, Members, Head, College
@@ -183,7 +182,7 @@ firebase.database().ref('committee').on('value', snapshot => {
     <footer>
         <p>&copy; 2023 Madhyanchal Gramin Bank</p>
     </footer>
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 </html>
 

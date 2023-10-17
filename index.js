@@ -74,6 +74,9 @@ app.get("/login/transactions",(req,res)=>{
 app.get("/login/about",(req,res)=>{
     res.render('about.ejs');
 })
+app.get("/login/abc",(req,res)=>{
+    res.render('abc.ejs',{apiKey,authDomain,databaseURL,projectId,storageBucket,messagingSenderId,appId});
+})
 
 app.get("/login/add_customer",(req,res)=>{
     res.render('add_customer.ejs',{apiKey,authDomain,databaseURL,projectId,storageBucket,messagingSenderId,appId});
