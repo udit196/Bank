@@ -98,7 +98,12 @@ app.post("/login",(req,res)=>{
             console.log(err);
         })     
 });
-const port=process.env.PORT || 80
-app.listen(80,function(){
-    console.log("Server started successfully on port 80");
+// const port=process.env.PORT || 80
+// app.listen(80,function(){
+//     console.log("Server started successfully on port 80");
+// });
+
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log("Server Has Started!");
 });
